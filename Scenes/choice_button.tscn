@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d23a236tsyx6w"]
+
+[node name="choice_button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+flat = true

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://3s3067adjex7"]
+
+[ext_resource type="FontFile" uid="uid://blvudq30npbfl" path="res://Roboto-Regular.ttf" id="1"]
+
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("1")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[node name="Dialog_Button" type="Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("1")
+text = "Choice"
+flat = true
