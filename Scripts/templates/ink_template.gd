@@ -9,8 +9,14 @@ var InkPlayer = load("res://addons/inkgd/ink_player.gd")
 
 var choice_button = load("res://Scenes/choice_button.tscn")
 var story_vars = [
-	
+	"documents", "evidence"
 ]
+
+var time = 999
+var resolve = 80
+var focus = 100
+var exhaustion = 0
+
 # ############################################################################ #
 # Public Nodes
 # ############################################################################ #
@@ -38,7 +44,11 @@ func _ready():
 	# Creates the story. 'loaded' will be emitted once Ink is ready
 	# continue the story.
 	_ink_player.create_story()
-
+	
+	$ResourcePanel/LabelsVbox/FocusLabel.text = "Focus: " + str(focus)
+	$ResourcePanel/LabelsVbox/ResolveLabel.text = "Resolve: " + str(resolve)
+	$ResourcePanel/LabelsVbox/TimeLabel.text = "Time: " + str(time)
+	$ResourcePanel/LabelsVbox/ExhaustionLabel.text = "Exhaustion: " + str(exhaustion)
 
 # ############################################################################ #
 # Signal Receivers
@@ -65,7 +75,7 @@ func _continue_story():
 		# Set the text of a Label to this value to display it in your game.
 		print(text)
 		
-		$Text.text = text
+		$InkText/InkTextArea.text = text
 		
 	if _ink_player.has_choices:
 		# 'current_choices' contains a list of the choices, as strings.
@@ -76,7 +86,7 @@ func _continue_story():
 			
 			var btn = choice_button.instantiate()
 			btn.text = choice.text
-			$VBoxContainer.add_child(btn)
+			$InkText/ChoiceButtonArea.add_child(btn)
 			
 			btn.pressed.connect(_select_choice.bind(choice.index))
 			# '_select_choice' is a function that will take the index of
@@ -89,7 +99,7 @@ func _continue_story():
 
 func _select_choice(index):
 	_ink_player.choose_choice_index(index)
-	for choice in $VBoxContainer.get_children():
+	for choice in $InkText/ChoiceButtonArea.get_children():
 		choice.queue_free()
 	_continue_story()
 

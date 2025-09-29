@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://day0g1kghfms8"]
+
+[ext_resource type="Script" uid="uid://brtb4fs42egxa" path="res://Scripts/templates/ink_template.gd" id="1_talt4"]
+[ext_resource type="Resource" uid="uid://cjsgbad343ev2" path="res://INK/Tutorial_example.json" id="2_n88jh"]
+[ext_resource type="PackedScene" uid="uid://c3j86cl2mv3wf" path="res://Scenes/resource_panel.tscn" id="3_n88jh"]
+[ext_resource type="FontFile" uid="uid://blvudq30npbfl" path="res://Roboto-Regular.ttf" id="4_y01r4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ad3hh"]
+font = ExtResource("4_y01r4")
+font_size = 30
+
+[node name="StartingScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_talt4")
+_loaded_story = ExtResource("2_n88jh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.20551756, 0.18227378, 0.16729614, 1)
+
+[node name="ResourcePanel" parent="." instance=ExtResource("3_n88jh")]
+position = Vector2(1693, 61)
+
+[node name="InkText" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 799.0
+offset_right = 1754.0
+offset_bottom = 1054.0
+
+[node name="InkTextArea" type="Label" parent="InkText"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Ink story text area"
+label_settings = SubResource("LabelSettings_ad3hh")
+autowrap_mode = 2
+
+[node name="ChoiceButtonArea" type="HBoxContainer" parent="InkText"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
