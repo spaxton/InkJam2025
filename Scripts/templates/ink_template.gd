@@ -9,13 +9,8 @@ var InkPlayer = load("res://addons/inkgd/ink_player.gd")
 
 var choice_button = load("res://Scenes/choice_button.tscn")
 var story_vars = [
-	"documents", "evidence"
+	"luck", "seconds"
 ]
-
-var time = 999
-var resolve = 80
-var focus = 100
-var exhaustion = 0
 
 # ############################################################################ #
 # Public Nodes
@@ -45,10 +40,7 @@ func _ready():
 	# continue the story.
 	_ink_player.create_story()
 	
-	$ResourcePanel/LabelsVbox/FocusLabel.text = "Focus: " + str(focus)
-	$ResourcePanel/LabelsVbox/ResolveLabel.text = "Resolve: " + str(resolve)
-	$ResourcePanel/LabelsVbox/TimeLabel.text = "Time: " + str(time)
-	$ResourcePanel/LabelsVbox/ExhaustionLabel.text = "Exhaustion: " + str(exhaustion)
+	$InkText/InkTextArea.text = ''
 
 # ############################################################################ #
 # Signal Receivers
@@ -75,7 +67,7 @@ func _continue_story():
 		# Set the text of a Label to this value to display it in your game.
 		print(text)
 		
-		$InkText/InkTextArea.text = text
+		$InkText/InkTextArea.text += text + "\n"
 		
 	if _ink_player.has_choices:
 		# 'current_choices' contains a list of the choices, as strings.
@@ -100,6 +92,7 @@ func _continue_story():
 func _select_choice(index):
 	_ink_player.choose_choice_index(index)
 	for choice in $InkText/ChoiceButtonArea.get_children():
+		$InkText/InkTextArea.text = ''
 		choice.queue_free()
 	_continue_story()
 
