@@ -1,6 +1,7 @@
 extends Node
 
-@onready var InkText: RichTextLabel = $InkText/InkTextArea
+@onready var InkText: RichTextLabel = $LetterBackground/InkText/InkTextArea
+@onready var InkChoice: VBoxContainer = $LetterBackground/InkText/ChoiceButtonArea
 
 # ############################################################################ #
 # Imports
@@ -69,7 +70,7 @@ func _continue_story():
 		# Set the text of a Label to this value to display it in your game.
 		print(text)
 		
-		InkText.text += text + "\n"
+		InkText.text += " " + text + "\n"
 		
 	if _ink_player.has_choices:
 		# 'current_choices' contains a list of the choices, as strings.
@@ -80,7 +81,7 @@ func _continue_story():
 			
 			var btn = choice_button.instantiate()
 			btn.text = choice.text
-			$InkText/ChoiceButtonArea.add_child(btn)
+			InkChoice.add_child(btn)
 			
 			btn.pressed.connect(_select_choice.bind(choice.index))
 			# '_select_choice' is a function that will take the index of
@@ -93,8 +94,8 @@ func _continue_story():
 
 func _select_choice(index):
 	_ink_player.choose_choice_index(index)
-	for choice in $InkText/ChoiceButtonArea.get_children():
-		$InkText/InkTextArea.text = ''
+	for choice in InkChoice.get_children():
+		InkText.text = ''
 		choice.queue_free()
 	_continue_story()
 
