@@ -1,12 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://day0g1kghfms8"]
+[gd_scene load_steps=4 format=3 uid="uid://day0g1kghfms8"]
 
 [ext_resource type="Script" uid="uid://brtb4fs42egxa" path="res://Scripts/templates/ink_template.gd" id="1_talt4"]
 [ext_resource type="Resource" uid="uid://dc5kcnxxxq6oi" path="res://INK/jekyll_and_hyde.json" id="2_y01r4"]
-[ext_resource type="FontFile" uid="uid://blvudq30npbfl" path="res://Roboto-Regular.ttf" id="4_y01r4"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_ad3hh"]
-font = ExtResource("4_y01r4")
-font_size = 30
+[ext_resource type="FontFile" uid="uid://c68t7ps5om0dy" path="res://fonts/Old Typewriter2.0.ttf" id="3_n88jh"]
 
 [node name="StartingScene" type="Control"]
 layout_mode = 3
@@ -36,12 +32,14 @@ offset_top = 39.0
 offset_right = 1643.0
 offset_bottom = 1038.0
 
-[node name="InkTextArea" type="Label" parent="InkText"]
+[node name="InkTextArea" type="RichTextLabel" parent="InkText"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_n88jh")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
 text = "Ink story text area"
-label_settings = SubResource("LabelSettings_ad3hh")
-autowrap_mode = 3
+fit_content = true
 autowrap_trim_flags = 0
 justification_flags = 131
 

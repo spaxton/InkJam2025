@@ -1,5 +1,7 @@
 extends Node
 
+@onready var InkText: RichTextLabel = $InkText/InkTextArea
+
 # ############################################################################ #
 # Imports
 # ############################################################################ #
@@ -40,7 +42,7 @@ func _ready():
 	# continue the story.
 	_ink_player.create_story()
 	
-	$InkText/InkTextArea.text = ''
+	InkText.text = ''
 
 # ############################################################################ #
 # Signal Receivers
@@ -67,7 +69,7 @@ func _continue_story():
 		# Set the text of a Label to this value to display it in your game.
 		print(text)
 		
-		$InkText/InkTextArea.text += text + "\n"
+		InkText.text += text + "\n"
 		
 	if _ink_player.has_choices:
 		# 'current_choices' contains a list of the choices, as strings.
