@@ -5,8 +5,8 @@ extends Node
 @onready var LuckText: RichTextLabel = $Luck
 @onready var SecsText: RichTextLabel = $Seconds
 @onready var MuteAmbient: Button = $MuteAmbientButton
-@onready var Ambient: AudioStreamPlayer = $AmbientMusic
-@onready var Dialog: AudioStreamPlayer = $AudioDialog
+@onready var AmbientPlayer: AudioStreamPlayer = $AmbientMusicPlayer
+@onready var DialogPlayer: AudioStreamPlayer = $AudioDialogPlayer
 
 # ############################################################################ #
 # Imports
@@ -20,6 +20,8 @@ var story_vars = [
 	"luck", "seconds"
 ]
 var pause_Play = false
+
+var DialogStream = AudioStream
 
 # ############################################################################ #
 # Public Nodes
@@ -52,6 +54,8 @@ func _ready():
 	InkText.text = ''
 	
 	MuteAmbient.pressed.connect(_MuteAmbient)
+	
+	DialogStream = null
 
 # ############################################################################ #
 # Signal Receivers
@@ -101,11 +105,11 @@ func _continue_story():
 
 func _MuteAmbient():
 	if pause_Play == true:
-		Ambient.play()
+		AmbientPlayer.play()
 		pause_Play = false
 		MuteAmbient.text = "Mute ambient music"
 	elif pause_Play == false:
-		Ambient.stop()
+		AmbientPlayer.stop()
 		pause_Play = true
 		MuteAmbient.text = "Play ambient music"
 	
@@ -124,10 +128,21 @@ func _bind_externals():
 #
 #func _external_function(arg1, arg2):
 #	pass
+
+#External function for playing audio
 #include file path with name from root folder
 func _play_Clip(name):
-	print(name)
-	Dialog.play()
+	if name == null:
+		print(name, ": file not found")
+		return
+	
+	print("Loading: ", name)
+	DialogStream = load("res:/" + name)
+	if DialogStream == null:
+		return
+	DialogPlayer.stop()
+	DialogPlayer.stream = DialogStream
+	DialogPlayer.play()
 
 # Uncomment to observe the variables from your ink story.
 # You can observe multiple variables by putting adding them in the array.
@@ -153,3 +168,6 @@ func _updateLuck(new_Value):
 
 func _updateSecs(new_Value):
 	SecsText.text = new_Value
+	
+func _creditsMenu():
+	pass

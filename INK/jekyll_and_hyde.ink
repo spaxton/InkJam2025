@@ -3,7 +3,7 @@
 //Current state: Rough Pass ("just make it exist")
 
 //vars
-
+//use full filepath from root folder for clipName for now
 EXTERNAL playClip(clipName)
 
 ->title_screen
@@ -65,13 +65,15 @@ January 24th, 1878
 
 + [Threaten]
     "Your soul has shriveled, Jekyll, it will burn as fuel for my own." #dialog_hyde
-    ~ playClip("test_jekyll_short")
+    ~ playClip("/audio/dialog/test_jekyll_long.wav")
 
 + [Console]
     "Poor Jekyll, unwilling slave to passion, your servitude will soon be over." #dialog_hyde
+    ~ playClip("/audio/effects/door-knocking-sound-effect.mp3")
     
 + [Mock]
     "Lost the battle? You have played traitor to both sides: Jekyll the hypocrite whose oath was always to herself." #dialog_hyde 
+    ~ playClip("/audio/effects/page-turning-sound-effect.mp3")
 
 - ->beat_2
 

@@ -17,12 +17,12 @@ grow_vertical = 2
 script = ExtResource("1_talt4")
 _loaded_story = ExtResource("2_ad3hh")
 
-[node name="AudioDialog" type="AudioStreamPlayer" parent="."]
+[node name="AudioDialogPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_0eap3")
 
-[node name="AmbientMusic" type="AudioStreamPlayer" parent="."]
+[node name="AmbientMusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ad3hh")
-volume_db = -11.0
+volume_db = -15.0
 autoplay = true
 bus = &"ambient"
 parameters/looping = true
@@ -120,8 +120,17 @@ fit_content = true
 [node name="MuteAmbientButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1557.0
-offset_top = 1026.0
+offset_top = 45.0
 offset_right = 1886.0
-offset_bottom = 1076.0
+offset_bottom = 95.0
 theme_override_font_sizes/font_size = 30
 text = "Mute Ambient Music"
+
+[node name="CreditsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1667.0
+offset_top = 994.0
+offset_right = 1778.0
+offset_bottom = 1044.0
+theme_override_font_sizes/font_size = 30
+text = "Credits"
