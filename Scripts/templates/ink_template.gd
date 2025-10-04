@@ -2,6 +2,11 @@ extends Node
 
 @onready var InkText: RichTextLabel = $LetterBackground/InkText/InkTextArea
 @onready var InkChoice: VBoxContainer = $LetterBackground/InkText/ChoiceButtonArea
+@onready var LuckText: RichTextLabel = $Luck
+@onready var SecsText: RichTextLabel = $Seconds
+@onready var MuteAmbient: Button = $MuteAmbientButton
+@onready var Ambient: AudioStreamPlayer = $AmbientMusic
+@onready var Dialog: AudioStreamPlayer = $AudioDialog
 
 # ############################################################################ #
 # Imports
@@ -14,6 +19,7 @@ var choice_button = load("res://Scenes/choice_button.tscn")
 var story_vars = [
 	"luck", "seconds"
 ]
+var pause_Play = false
 
 # ############################################################################ #
 # Public Nodes
@@ -44,6 +50,8 @@ func _ready():
 	_ink_player.create_story()
 	
 	InkText.text = ''
+	
+	MuteAmbient.pressed.connect(_MuteAmbient)
 
 # ############################################################################ #
 # Signal Receivers
@@ -53,8 +61,8 @@ func _story_loaded(successfully: bool):
 	if !successfully:
 		return
 
-	# _observe_variables()
-	# _bind_externals()
+	_observe_variables()
+	_bind_externals()
 
 	_continue_story()
 
@@ -71,7 +79,7 @@ func _continue_story():
 		print(text)
 		
 		InkText.text += " " + text + "\n"
-		
+	
 	if _ink_player.has_choices:
 		# 'current_choices' contains a list of the choices, as strings.
 		for choice in _ink_player.current_choices:
@@ -91,9 +99,19 @@ func _continue_story():
 		# This code runs when the story reaches it's end.
 		print("The End")
 
-
+func _MuteAmbient():
+	if pause_Play == true:
+		Ambient.play()
+		pause_Play = false
+		MuteAmbient.text = "Mute ambient music"
+	elif pause_Play == false:
+		Ambient.stop()
+		pause_Play = true
+		MuteAmbient.text = "Play ambient music"
+	
 func _select_choice(index):
 	_ink_player.choose_choice_index(index)
+	
 	for choice in InkChoice.get_children():
 		InkText.text = ''
 		choice.queue_free()
@@ -101,20 +119,37 @@ func _select_choice(index):
 
 
 # Uncomment to bind an external function.
+func _bind_externals():
+	_ink_player.bind_external_function("playClip", self, "_play_Clip")
 #
-# func _bind_externals():
-# 	_ink_player.bind_external_function("<function_name>", self, "_external_function")
-#
-#
-# func _external_function(arg1, arg2):
-#	 pass
-
+#func _external_function(arg1, arg2):
+#	pass
+#include file path with name from root folder
+func _play_Clip(name):
+	print(name)
+	Dialog.play()
 
 # Uncomment to observe the variables from your ink story.
 # You can observe multiple variables by putting adding them in the array.
 func _observe_variables():
+	print("observe variables")
 	_ink_player.observe_variables(story_vars, self, "_variable_changed")
 #
 #
 func _variable_changed(variable_name, new_value):
+	#ink variable check
+	if variable_name == "luck":
+		if LuckText.visible == false:
+			LuckText.visible = true
+		_updateLuck(str("Luck: ", new_value))
+	if variable_name == "seconds":
+		if SecsText.visible == false:
+			SecsText.visible = true
+		_updateSecs(str("Secs: ", new_value))
 	print("Variable '%s' changed to: %s" %[variable_name, new_value])
+	
+func _updateLuck(new_Value):
+	LuckText.text = new_Value
+
+func _updateSecs(new_Value):
+	SecsText.text = new_Value

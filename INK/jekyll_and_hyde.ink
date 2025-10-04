@@ -4,6 +4,8 @@
 
 //vars
 
+EXTERNAL playClip(clipName)
+
 ->title_screen
 
 === title_screen ===
@@ -63,6 +65,7 @@ January 24th, 1878
 
 + [Threaten]
     "Your soul has shriveled, Jekyll, it will burn as fuel for my own." #dialog_hyde
+    ~ playClip("test_jekyll_short")
 
 + [Console]
     "Poor Jekyll, unwilling slave to passion, your servitude will soon be over." #dialog_hyde

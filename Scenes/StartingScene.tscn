@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://day0g1kghfms8"]
+[gd_scene load_steps=7 format=3 uid="uid://day0g1kghfms8"]
 
 [ext_resource type="Script" uid="uid://brtb4fs42egxa" path="res://Scripts/templates/ink_template.gd" id="1_talt4"]
-[ext_resource type="Resource" uid="uid://c5yw1qmtwuj51" path="res://INK/jekyll_and_hyde.json" id="2_y01r4"]
+[ext_resource type="Resource" uid="uid://deq0gefytgdps" path="res://INK/jekyll_and_hydeTEST.ink.json" id="2_ad3hh"]
 [ext_resource type="AudioStream" uid="uid://c73emfy5gp1q" path="res://audio/ambience/space-ambient-sound.mp3" id="3_ad3hh"]
 [ext_resource type="FontFile" uid="uid://c68t7ps5om0dy" path="res://fonts/Old Typewriter2.0.ttf" id="3_n88jh"]
 [ext_resource type="Texture2D" uid="uid://btlsrlnyp7sog" path="res://images/old-natural-wooden-background.jpg" id="3_y01r4"]
+[ext_resource type="AudioStream" uid="uid://dsd8g3d26pxvr" path="res://audio/dialog/test_jekyll_short.wav" id="6_0eap3"]
 
 [node name="StartingScene" type="Control"]
 layout_mode = 3
@@ -14,11 +15,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_talt4")
-_loaded_story = ExtResource("2_y01r4")
+_loaded_story = ExtResource("2_ad3hh")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioDialog" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_0eap3")
+
+[node name="AmbientMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ad3hh")
+volume_db = -11.0
 autoplay = true
+bus = &"ambient"
 parameters/looping = true
 
 [node name="WoodTable" type="TextureRect" parent="."]
@@ -78,7 +84,6 @@ theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = " Ink story text area"
 fit_content = true
-scroll_active = false
 autowrap_mode = 2
 justification_flags = 131
 
@@ -87,3 +92,36 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
+
+[node name="Luck" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 52.0
+offset_top = 843.0
+offset_right = 263.0
+offset_bottom = 917.0
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "LUCK: "
+fit_content = true
+
+[node name="Seconds" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 65.0
+offset_top = 957.0
+offset_right = 276.0
+offset_bottom = 1028.0
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "Secs: "
+fit_content = true
+
+[node name="MuteAmbientButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1557.0
+offset_top = 1026.0
+offset_right = 1886.0
+offset_bottom = 1076.0
+theme_override_font_sizes/font_size = 30
+text = "Mute Ambient Music"
