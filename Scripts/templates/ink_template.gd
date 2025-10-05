@@ -1,7 +1,7 @@
 extends Node
 
-@onready var InkText: RichTextLabel = $LetterBackground/InkText/InkTextArea
-@onready var InkChoice: VBoxContainer = $LetterBackground/InkText/ChoiceButtonArea
+@onready var InkText: RichTextLabel = $LetterBackground/ScrollContainer/InkText/InkTextArea
+@onready var InkChoice: VBoxContainer = $LetterBackground/ScrollContainer/InkText/ChoiceButtonArea
 @onready var LuckText: RichTextLabel = $LetterBackground/Luck
 @onready var SecsText: RichTextLabel = $LetterBackground/Seconds
 @onready var MuteAmbient: Button = $LetterBackground/MuteAmbientButton

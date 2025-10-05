@@ -61,21 +61,22 @@ size_flags_vertical = 4
 color = Color(0.87564456, 0.7447373, 0.5776773, 1)
 metadata/_edit_group_ = true
 
-[node name="InkText" type="VBoxContainer" parent="LetterBackground"]
+[node name="ScrollContainer" type="ScrollContainer" parent="LetterBackground"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.001
-anchor_top = 0.049000002
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 29.175
-offset_top = -0.42100143
-offset_right = -14.0
-offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
-[node name="InkTextArea" type="RichTextLabel" parent="LetterBackground/InkText"]
+[node name="InkText" type="VBoxContainer" parent="LetterBackground/ScrollContainer"]
+custom_minimum_size = Vector2(1100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="InkTextArea" type="RichTextLabel" parent="LetterBackground/ScrollContainer/InkText"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.17641911, 0.17641908, 0.17641908, 1)
@@ -84,10 +85,11 @@ theme_override_font_sizes/normal_font_size = 45
 bbcode_enabled = true
 text = " Ink story text area"
 fit_content = true
+scroll_active = false
 autowrap_mode = 2
 justification_flags = 131
 
-[node name="ChoiceButtonArea" type="VBoxContainer" parent="LetterBackground/InkText"]
+[node name="ChoiceButtonArea" type="VBoxContainer" parent="LetterBackground/ScrollContainer/InkText"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
