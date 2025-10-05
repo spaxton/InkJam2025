@@ -2,11 +2,13 @@ extends Node
 
 @onready var InkText: RichTextLabel = $LetterBackground/InkText/InkTextArea
 @onready var InkChoice: VBoxContainer = $LetterBackground/InkText/ChoiceButtonArea
-@onready var LuckText: RichTextLabel = $Luck
-@onready var SecsText: RichTextLabel = $Seconds
-@onready var MuteAmbient: Button = $MuteAmbientButton
+@onready var LuckText: RichTextLabel = $LetterBackground/Luck
+@onready var SecsText: RichTextLabel = $LetterBackground/Seconds
+@onready var MuteAmbient: Button = $LetterBackground/MuteAmbientButton
 @onready var AmbientPlayer: AudioStreamPlayer = $AmbientMusicPlayer
 @onready var DialogPlayer: AudioStreamPlayer = $AudioDialogPlayer
+@onready var CreditsButton: Button = $LetterBackground/CreditsButton
+@onready var BackButton: Button = $Credits/VBoxContainer/BackButton
 
 # ############################################################################ #
 # Imports
@@ -20,7 +22,7 @@ var story_vars = [
 	"luck", "seconds"
 ]
 var pause_Play = false
-
+var credits = false
 var DialogStream = AudioStream
 
 # ############################################################################ #
@@ -54,6 +56,8 @@ func _ready():
 	InkText.text = ''
 	
 	MuteAmbient.pressed.connect(_MuteAmbient)
+	CreditsButton.pressed.connect(_credits)
+	BackButton.pressed.connect(_credits)
 	
 	DialogStream = null
 
@@ -144,6 +148,18 @@ func _play_Clip(name):
 	DialogPlayer.stream = DialogStream
 	DialogPlayer.play()
 
+func _credits():
+	if credits == false:
+		print("Credits menu")
+		$LetterBackground.visible = false
+		$Credits.visible = true
+		credits = true
+	elif credits == true:
+		print("Back to game")
+		$LetterBackground.visible = true
+		$Credits.visible = false
+		credits = false
+	
 # Uncomment to observe the variables from your ink story.
 # You can observe multiple variables by putting adding them in the array.
 func _observe_variables():
