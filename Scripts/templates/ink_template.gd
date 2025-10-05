@@ -2,12 +2,24 @@ extends Node
 
 @onready var InkText: RichTextLabel = $LetterBackground/ScrollContainer/InkText/InkTextArea
 @onready var InkChoice: VBoxContainer = $LetterBackground/ScrollContainer/InkText/ChoiceButtonArea
-@onready var LuckText: RichTextLabel = $LetterBackground/Luck
-@onready var SecsText: RichTextLabel = $LetterBackground/Seconds
+
+#resource text lables
+@onready var LuckText: RichTextLabel = $LetterBackground/PlayerResources/Luck
+@onready var SecsText: RichTextLabel = $LetterBackground/PlayerResources/Seconds
+@onready var CopTimer: Timer = $LetterBackground/PlayerResources/Timer
+@onready var FocusText: RichTextLabel = $LetterBackground/PlayerResources/Focus
+@onready var ResolveText: RichTextLabel = $LetterBackground/PlayerResources/Resolve
+@onready var InfluenceText: RichTextLabel = $LetterBackground/PlayerResources/Influence
+
+#buttons
 @onready var MuteAmbient: Button = $LetterBackground/MuteAmbientButton
+@onready var CreditsButton: Button = $LetterBackground/CreditsButton
+
+#audio
 @onready var AmbientPlayer: AudioStreamPlayer = $AmbientMusicPlayer
 @onready var DialogPlayer: AudioStreamPlayer = $AudioDialogPlayer
-@onready var CreditsButton: Button = $LetterBackground/CreditsButton
+
+#credits
 @onready var BackButton: Button = $Credits/VBoxContainer/BackButton
 
 # ############################################################################ #
@@ -19,7 +31,7 @@ var InkPlayer = load("res://addons/inkgd/ink_player.gd")
 
 var choice_button = load("res://Scenes/choice_button.tscn")
 var story_vars = [
-	"luck", "seconds"
+	"luck", "seconds", "resolve", "influence", "focus"
 ]
 var pause_Play = false
 var credits = false
@@ -60,6 +72,13 @@ func _ready():
 	BackButton.pressed.connect(_credits)
 	
 	DialogStream = null
+	
+	#FocusText.text += 
+
+func _process(delta: float):
+	if Input.is_action_just_pressed("ui_cancel"):
+		print("game quit")
+		get_tree().quit()
 
 # ############################################################################ #
 # Signal Receivers
@@ -73,7 +92,6 @@ func _story_loaded(successfully: bool):
 	_bind_externals()
 
 	_continue_story()
-
 
 # ############################################################################ #
 # Private Methods
@@ -125,7 +143,6 @@ func _select_choice(index):
 		choice.queue_free()
 	_continue_story()
 
-
 # Uncomment to bind an external function.
 func _bind_externals():
 	_ink_player.bind_external_function("playClip", self, "_play_Clip")
@@ -172,18 +189,20 @@ func _variable_changed(variable_name, new_value):
 	if variable_name == "luck":
 		if LuckText.visible == false:
 			LuckText.visible = true
-		_updateLuck(str("Luck: ", new_value))
-	if variable_name == "seconds":
-		if SecsText.visible == false:
-			SecsText.visible = true
-		_updateSecs(str("Secs: ", new_value))
+			LuckText.text = str("Luck: ", new_value)
+	if variable_name == "focus":
+		if FocusText.visible == false:
+			FocusText.visible = true
+			FocusText.text = str("Focus: ", new_value)
+	if variable_name == "resolve":
+		if ResolveText.visible == false:
+			ResolveText.visible = true
+			ResolveText.text = str("Resolve: ", new_value)
+	if variable_name == "influence":
+		if InfluenceText.visible == false:
+			InfluenceText.visible = true
+			InfluenceText.text = str("Influence: ", new_value)
 	print("Variable '%s' changed to: %s" %[variable_name, new_value])
 	
-func _updateLuck(new_Value):
-	LuckText.text = new_Value
-
-func _updateSecs(new_Value):
-	SecsText.text = new_Value
-	
-func _creditsMenu():
-	pass
+func _updateSecs():
+	SecsText.text = str(CopTimer.time_left, " seconds left")

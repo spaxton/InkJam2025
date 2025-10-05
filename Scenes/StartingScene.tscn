@@ -94,30 +94,6 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Luck" type="RichTextLabel" parent="LetterBackground"]
-visible = false
-layout_mode = 0
-offset_left = -268.0
-offset_top = 795.0
-offset_right = -57.0
-offset_bottom = 869.0
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "LUCK: "
-fit_content = true
-
-[node name="Seconds" type="RichTextLabel" parent="LetterBackground"]
-visible = false
-layout_mode = 0
-offset_left = -255.0
-offset_top = 909.0
-offset_right = -44.0
-offset_bottom = 980.0
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "Secs: "
-fit_content = true
-
 [node name="MuteAmbientButton" type="Button" parent="LetterBackground"]
 layout_mode = 0
 offset_left = 1233.0
@@ -135,6 +111,58 @@ offset_right = 1448.0
 offset_bottom = 45.0
 theme_override_font_sizes/font_size = 30
 text = "Credits"
+
+[node name="PlayerResources" type="VBoxContainer" parent="LetterBackground"]
+layout_mode = 0
+offset_left = -308.0
+offset_top = 546.0
+offset_right = -8.0
+offset_bottom = 1026.0
+alignment = 2
+
+[node name="Luck" type="RichTextLabel" parent="LetterBackground/PlayerResources"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[color=green]Luck: [/color]"
+fit_content = true
+
+[node name="Seconds" type="RichTextLabel" parent="LetterBackground/PlayerResources"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[color=red]Secs: [/color]"
+fit_content = true
+
+[node name="Focus" type="RichTextLabel" parent="LetterBackground/PlayerResources"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[color=grey]Focus: [/color]"
+fit_content = true
+
+[node name="Resolve" type="RichTextLabel" parent="LetterBackground/PlayerResources"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[color=blue]Resolve: [/color]"
+fit_content = true
+
+[node name="Influence" type="RichTextLabel" parent="LetterBackground/PlayerResources"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[color=yellow]Influence: [/color]"
+fit_content = true
+
+[node name="Timer" type="Timer" parent="LetterBackground/PlayerResources"]
+wait_time = 120.0
+one_shot = true
 
 [node name="Credits" type="Control" parent="."]
 visible = false
