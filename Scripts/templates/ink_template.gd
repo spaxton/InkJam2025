@@ -76,7 +76,6 @@ func _ready():
 	
 	CopTimer.timeout.connect(_HydeCaught)
 	
-	
 
 func _process(delta: float):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -117,8 +116,10 @@ func _continue_story():
 			_actone()
 		if _ink_player.visit_count_at_path("act_ii") > playerProgress:
 			_acttwo()
-		
-		InkText.text += " " + text + "\n"
+		if _ink_player.visit_count_at_path("end") > playerProgress:
+			_end()
+			
+		InkText.text += text + "\n"
 	
 	if _ink_player.has_choices:
 		# 'current_choices' contains a list of the choices, as strings.
@@ -150,8 +151,9 @@ func _select_choice(index):
 	_ink_player.choose_choice_index(index)
 	
 	for choice in InkChoice.get_children():
-		InkText.text = ''
+		#InkText.text = ''
 		choice.queue_free()
+		
 	_continue_story()
 
 # Uncomment to bind an external function.
@@ -166,6 +168,14 @@ func _actone():
 	FocusText.visible = true
 	ResolveText.visible = true
 	InfluenceText.visible = true
+	CopTimer.stop()
+	FocusText.text = "[color=grey]Focus: [/color]"
+	ResolveText.text = "[color=blue]Resolve: [/color]"
+	InfluenceText.text = "[color=yellow]Influence: [/color]"
+	SecsText.visible = false
+	SecsText.text = "[color=red]Secs: [/color]"
+	LuckText.visible = false
+	LuckText.text = "[color=green]Luck: [/color]"
 	
 func _acttwo():
 	print("act 2 visit count: ", _ink_player.visit_count_at_path("act_ii"))
@@ -175,16 +185,15 @@ func _acttwo():
 	playerProgress += 1
 	
 func _end():
-	print("end visit count: ", _ink_player.visit_count_at_path("end"))
+	print("END!! visit count: ", _ink_player.visit_count_at_path("end"))
 	_resetVariable()
 
 func _HydeCaught():
 	print("Hyde Caught")
+	_ink_player.choose_path("act_ii.caught_end")
 	for choice in InkChoice.get_children():
 		choice.queue_free()
-	_ink_player.choose_path("act_ii.caught_end")
 	_continue_story()
-	_resetVariable()
 	
 #External function for playing audio
 #include file path with name from root folder
@@ -221,6 +230,7 @@ func _observe_variables():
 #
 #
 func _resetVariable():
+	InkText.text = ''
 	CopTimer.stop()
 	playerProgress = 0
 	FocusText.visible = false
