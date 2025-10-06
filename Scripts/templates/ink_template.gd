@@ -36,6 +36,7 @@ var story_vars = [
 var pause_Play = false
 var credits = false
 var DialogStream = AudioStream
+var playerProgress = 0
 
 # ############################################################################ #
 # Public Nodes
@@ -73,12 +74,20 @@ func _ready():
 	
 	DialogStream = null
 	
-	#FocusText.text += 
+	CopTimer.timeout.connect(_HydeCaught)
+	
+	
 
 func _process(delta: float):
 	if Input.is_action_just_pressed("ui_cancel"):
 		print("game quit")
 		get_tree().quit()
+	if Input.is_action_just_pressed("act2"):
+		_ink_player.choose_path("act_ii")
+		for choice in InkChoice.get_children():
+			choice.queue_free()
+		_continue_story()
+	_updateSecs()
 
 # ############################################################################ #
 # Signal Receivers
@@ -104,6 +113,11 @@ func _continue_story():
 		# Set the text of a Label to this value to display it in your game.
 		print(text)
 		
+		if _ink_player.visit_count_at_path("act_i") > playerProgress:
+			_actone()
+		if _ink_player.visit_count_at_path("act_ii") > playerProgress:
+			_acttwo()
+		
 		InkText.text += " " + text + "\n"
 	
 	if _ink_player.has_choices:
@@ -118,9 +132,6 @@ func _continue_story():
 			InkChoice.add_child(btn)
 			
 			btn.pressed.connect(_select_choice.bind(choice.index))
-			# '_select_choice' is a function that will take the index of
-			# your selection and continue the story.
-			#_select_choice(0)
 	else:
 		# This code runs when the story reaches it's end.
 		print("The End")
@@ -150,6 +161,31 @@ func _bind_externals():
 #func _external_function(arg1, arg2):
 #	pass
 
+func _actone():
+	print("act 1 visit count: ", _ink_player.visit_count_at_path("act_i"))
+	FocusText.visible = true
+	ResolveText.visible = true
+	InfluenceText.visible = true
+	
+func _acttwo():
+	print("act 2 visit count: ", _ink_player.visit_count_at_path("act_ii"))
+	CopTimer.start()
+	SecsText.visible = true
+	LuckText.visible = true
+	playerProgress += 1
+	
+func _end():
+	print("end visit count: ", _ink_player.visit_count_at_path("end"))
+	_resetVariable()
+
+func _HydeCaught():
+	print("Hyde Caught")
+	for choice in InkChoice.get_children():
+		choice.queue_free()
+	_ink_player.choose_path("act_ii.caught_end")
+	_continue_story()
+	_resetVariable()
+	
 #External function for playing audio
 #include file path with name from root folder
 func _play_Clip(name):
@@ -184,25 +220,29 @@ func _observe_variables():
 	_ink_player.observe_variables(story_vars, self, "_variable_changed")
 #
 #
+func _resetVariable():
+	CopTimer.stop()
+	playerProgress = 0
+	FocusText.visible = false
+	FocusText.text = "[color=grey]Focus: [/color]"
+	ResolveText.visible = false
+	ResolveText.text = "[color=blue]Resolve: [/color]"
+	InfluenceText.visible = false
+	InfluenceText.text = "[color=yellow]Influence: [/color]"
+	SecsText.visible = false
+	SecsText.text = "[color=red]Secs: [/color]"
+	LuckText.visible = false
+	LuckText.text = "[color=green]Luck: [/color]"
+	
 func _variable_changed(variable_name, new_value):
+	if variable_name == null:
+		return
 	#ink variable check
-	if variable_name == "luck":
-		if LuckText.visible == false:
-			LuckText.visible = true
-			LuckText.text = str("Luck: ", new_value)
-	if variable_name == "focus":
-		if FocusText.visible == false:
-			FocusText.visible = true
-			FocusText.text = str("Focus: ", new_value)
-	if variable_name == "resolve":
-		if ResolveText.visible == false:
-			ResolveText.visible = true
-			ResolveText.text = str("Resolve: ", new_value)
-	if variable_name == "influence":
-		if InfluenceText.visible == false:
-			InfluenceText.visible = true
-			InfluenceText.text = str("Influence: ", new_value)
+	#if variable_name == "act_i":
+	#	_actone()
+	#if variable_name == "act_ii":
+	#	_acttwo()
 	print("Variable '%s' changed to: %s" %[variable_name, new_value])
 	
 func _updateSecs():
-	SecsText.text = str(CopTimer.time_left, " seconds left")
+	SecsText.text = str("Secs: %0.1f" %CopTimer.time_left)
