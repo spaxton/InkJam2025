@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://day0g1kghfms8"]
 
 [ext_resource type="Script" uid="uid://brtb4fs42egxa" path="res://Scripts/templates/ink_template.gd" id="1_talt4"]
-[ext_resource type="Resource" uid="uid://deq0gefytgdps" path="res://INK/jekyll_and_hydeTEST.ink.json" id="2_ad3hh"]
-[ext_resource type="AudioStream" uid="uid://c73emfy5gp1q" path="res://audio/ambience/space-ambient-sound.mp3" id="3_ad3hh"]
+[ext_resource type="Resource" uid="uid://c5yw1qmtwuj51" path="res://INK/jekyll_and_hyde.json" id="2_0eap3"]
 [ext_resource type="Texture2D" uid="uid://btlsrlnyp7sog" path="res://images/old-natural-wooden-background.jpg" id="3_y01r4"]
+[ext_resource type="AudioStream" uid="uid://b2tu8vq2oc8ti" path="res://audio/ambience/space-ambient-sound.wav" id="4_0eap3"]
 [ext_resource type="AudioStream" uid="uid://dsd8g3d26pxvr" path="res://audio/dialog/test_jekyll_short.wav" id="6_0eap3"]
 [ext_resource type="FontFile" uid="uid://c0ephf8ged50h" path="res://fonts/AquilineTwo.ttf" id="6_8i0ob"]
 
@@ -15,17 +15,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_talt4")
-_loaded_story = ExtResource("2_ad3hh")
+_loaded_story = ExtResource("2_0eap3")
 
 [node name="AudioDialogPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_0eap3")
 
 [node name="AmbientMusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_ad3hh")
-volume_db = -15.0
+stream = ExtResource("4_0eap3")
 autoplay = true
 bus = &"ambient"
-parameters/looping = true
 
 [node name="WoodTable" type="TextureRect" parent="."]
 modulate = Color(0.3665946, 0.3665946, 0.36659455, 1)
