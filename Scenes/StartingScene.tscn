@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://day0g1kghfms8"]
 
 [ext_resource type="Script" uid="uid://brtb4fs42egxa" path="res://Scripts/templates/ink_template.gd" id="1_talt4"]
-[ext_resource type="Resource" uid="uid://c5yw1qmtwuj51" path="res://INK/jekyll_and_hyde.json" id="2_0eap3"]
+[ext_resource type="Resource" uid="uid://dc5kcnxxxq6oi" path="res://INK/jekyll_and_hyde.json" id="2_0eap3"]
 [ext_resource type="Texture2D" uid="uid://btlsrlnyp7sog" path="res://images/old-natural-wooden-background.jpg" id="3_y01r4"]
 [ext_resource type="AudioStream" uid="uid://b2tu8vq2oc8ti" path="res://audio/ambience/space-ambient-sound.wav" id="4_0eap3"]
 [ext_resource type="AudioStream" uid="uid://dsd8g3d26pxvr" path="res://audio/dialog/test_jekyll_short.wav" id="6_0eap3"]
@@ -78,6 +78,7 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.17641911, 0.17641908, 0.17641908, 1)
+theme_override_constants/line_separation = -40
 theme_override_fonts/normal_font = ExtResource("6_8i0ob")
 theme_override_font_sizes/normal_font_size = 45
 bbcode_enabled = true

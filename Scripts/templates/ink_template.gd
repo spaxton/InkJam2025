@@ -113,8 +113,8 @@ func _continue_story():
 		# Set the text of a Label to this value to display it in your game.
 		print(text)
 			
-		InkText.text += text + "\n"
-	
+		InkText.text += text #+ "\n"
+		
 	if _ink_player.has_choices:
 		# 'current_choices' contains a list of the choices, as strings.
 		for choice in _ink_player.current_choices:
@@ -153,9 +153,33 @@ func _select_choice(index):
 # Uncomment to bind an external function.
 func _bind_externals():
 	_ink_player.bind_external_function("playClip", self, "_play_Clip")
-#
-#func _external_function(arg1, arg2):
-#	pass
+	_ink_player.bind_external_function("focusVisible", self, "_focusVisible")
+	_ink_player.bind_external_function("resolveVisible", self, "_resolveVisible")
+	_ink_player.bind_external_function("InfluenceVisible", self, "_InfluenceVisible")
+	_ink_player.bind_external_function("focusText", self, "_focusText")
+	_ink_player.bind_external_function("resolveText", self, "_resolveText")
+	_ink_player.bind_external_function("InfluenceText", self, "_InfluenceText")
+
+func _focusVisible(visible):
+	FocusText.visible = visible
+	
+func _focusText(text):
+	FocusText.text = text
+	
+func _resolveVisible(visible):
+	ResolveText.visible = visible
+	
+func _resolveText(text):
+	ResolveText.text = text
+	
+func _influenceVisible(visible):
+	InfluenceText.visible = visible
+	
+func _influenceText(text):
+	InfluenceText.text = text
+	
+func _TimerStart(time):
+	CopTimer.start(time)
 
 func _actone():
 	print("ACT 1 ", playerProgress)
