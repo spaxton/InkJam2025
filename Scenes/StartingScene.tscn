@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://day0g1kghfms8"]
 
 [ext_resource type="Script" uid="uid://brtb4fs42egxa" path="res://Scripts/templates/ink_template.gd" id="1_talt4"]
-[ext_resource type="Resource" uid="uid://dc5kcnxxxq6oi" path="res://INK/jekyll_and_hyde.json" id="2_0eap3"]
+[ext_resource type="Resource" uid="uid://deq0gefytgdps" path="res://INK/jekyll_and_hydeTEST.ink.json" id="2_0eap3"]
 [ext_resource type="Texture2D" uid="uid://btlsrlnyp7sog" path="res://images/old-natural-wooden-background.jpg" id="3_y01r4"]
 [ext_resource type="AudioStream" uid="uid://b2tu8vq2oc8ti" path="res://audio/ambience/space-ambient-sound.wav" id="4_0eap3"]
 [ext_resource type="AudioStream" uid="uid://dsd8g3d26pxvr" path="res://audio/dialog/test_jekyll_short.wav" id="6_0eap3"]

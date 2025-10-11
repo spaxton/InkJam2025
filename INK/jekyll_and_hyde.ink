@@ -61,7 +61,12 @@ Audio from freesoundlibrary.com
 VAR influence = 10
 VAR focus = 5
 VAR resolve = 5
-
+~ focusVisible(true)
+~ focusText(": {focus}")
+~ resolveVisible(true)
+~ resolveText(": {resolve}")
+~ influenceVisible(true)
+~ influenceText(": {influence}")
 ~ currentAct = "act1"
 
 //todo: reveal vars (focus/resolve)
@@ -75,18 +80,21 @@ There is a corrupting force in all our souls, and I have nearly lost the battle 
     Your soul has shriveled, Jekyll, it will burn as fuel for my own. #dialog
     ~ playClip("/audio/dialog/act_i_03_your_soul_has_shriveled.wav")
     ~ focus --
+    ~focusText(": {focus}")
     
 
 + [Console]
     Poor Jekyll, unwilling slave to passion, your servitude will soon be over. #dialog
     ~ playClip("/audio/dialog/act_i_04_poor_jekyll.wav")
     ~ resolve --
+    ~resolveText(": {resolve}")
     
     
 + [Mock]
     Lost the battle? You have played traitor to both sides: Jekyll the hypocrite whose oath was always to herself. #dialo_hyde
     ~ playClip("/audio/dialog/act_i_05_lost_the_battle.wav")
     ~ focus --
+    ~focusText(": {focus}")
    
 //todo: write
 - ->variable_display->
@@ -110,22 +118,28 @@ Hyde. This insurgent horror is knit closer than a wife, closer than an eye; cage
     ~ playClip("/audio/dialog/act_i_07_too_late_too_late.wav")
     ~ focus -= 2
     ~ influence -= 3
+    ~focusText(": {focus}")
+    ~influenceText(": {influence}")
     
 + [Write (-2 Influence)]
     While Jekyll is distracted Hyde scratches out the last sentence, replacing it with a series of profanities.
     ~ focus --
     ~ influence -=2
+    ~focusText(": {focus}")
+    ~influenceText(": {influence}")
     
 + [Thirst (-1 Influence)]
     The shared body yearns to slake a mortal thirst. Hyde pushes it to the surface, reminding Jekyll of all she is putting at stake.
     ~ resolve --
     ~ influence --
+    ~resolveText(": {resolve}")
+    ~influenceText(": {influence}")
 
 - ->variable_display->
 //todo: write
     
 +[Continue]
-    ~ playClip("act_i_08_long_sigh.wav")
+    ~ playClip("/audio/dialog/act_i_08_long_sigh.wav")
 
 //explain influence pt. 2
 
@@ -143,6 +157,9 @@ However far from home and duty I may stray she is with me, to cut the devil out 
     ~ focus --
     ~ influence -=2
     ~ resolve --
+    ~focusText(": {focus}")
+    ~resolveText(": {resolve}")
+    ~influenceText(": {influence}")
     
     
 + [Discourage (-1)]
@@ -150,6 +167,8 @@ However far from home and duty I may stray she is with me, to cut the devil out 
     ~ playClip("/audio/dialog/act_i_11_why_silence_your_own_voice.wav")
     ~ resolve --
     ~ influence --
+    ~resolveText(": {resolve}")
+    ~influenceText(": {influence}")
 
 - ->variable_display->
 //todo: write
@@ -168,17 +187,22 @@ Hyde's crimes are to me that of a drunkard, and I am guilty for stripping myself
     ~ playClip("/audio/dialog/act_i_13_i_was_a_mask.wav")
     ~ focus -= 2
     ~ influence --
+    ~focusText(": {focus}")
+    ~influenceText(": {influence}")
     
 + [Pride (-1)]
     You never needed me to supply you with a pompous air of self importance. #dialog
     ~ playClip("/audio/dialog/act_i_14_you_never_needed_me.wav")
     ~ focus --
     ~ influence --
+    ~focusText(": {focus}")
+    ~influenceText(": {influence}")
     
 + [Wrath (-1)]
     They deserve our fury! Ungrateful, imputent -- their scornful glances beg for a show of strength! #dialog
     ~ playClip("/audio/dialog/act_i_15_they_deserve_our_fury.wav")
     ~ influence --
+    ~influenceText(": {influence}")
 
 - ->variable_display->
 //todo: write
@@ -202,6 +226,7 @@ I must keep myself aware of any change in temper; a greater boldness, contempt o
 A knock at the cabinet door breaks Jekyll's train of thought.
     ~ playClip("/audio/effects/door-knocking-sound-effect.mp3")
     ~ focus --
+    ~focusText(": {focus}")
 
 + [Listen]
     "Who calls?"  #dialog
@@ -220,11 +245,15 @@ A knock at the cabinet door breaks Jekyll's train of thought.
             ~ playClip("/audio/dialog/act_i_20_how_tragic_it_will_be.wav")
     ~ resolve --
     ~ influence --
+    ~resolveText(": {resolve}")
+    ~influenceText(": {influence}")
 + [Reveal subtlety (-1)]
     Those were my vocal chords, and Mr. Utterson could hear it. He quite hates me, you know. #dialog
             ~ playClip("/audio/dialog/act_i_21_those_were_my_vocal_chords.wav")
     ~ focus --
     ~ influence --
+    ~focusText(": {focus}")
+    ~influenceText(": {influence}")
 
 - ->variable_display->
 //todo: write
@@ -494,6 +523,22 @@ You close the package and look around the room which bears the truth of experien
 
 
 // functions
+EXTERNAL timerStart()
+EXTERNAL timerStop()
+
+//pass true or false whether you want the stat to be shown
+EXTERNAL focusVisible(bool)
+EXTERNAL resolveVisible(bool)
+EXTERNAL influenceVisible(bool)
+EXTERNAL luckVisible(bool)
+EXTERNAL secsVisible(bool)
+
+//pass text to show for the stat
+EXTERNAL focusText(text)
+EXTERNAL resolveText(text)
+EXTERNAL influenceText(text)
+EXTERNAL luckText(text)
+EXTERNAL secsText(text)
 
 //use full filepath from root folder for clipName for now
 EXTERNAL playClip(clipName)

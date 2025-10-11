@@ -155,10 +155,16 @@ func _bind_externals():
 	_ink_player.bind_external_function("playClip", self, "_play_Clip")
 	_ink_player.bind_external_function("focusVisible", self, "_focusVisible")
 	_ink_player.bind_external_function("resolveVisible", self, "_resolveVisible")
-	_ink_player.bind_external_function("InfluenceVisible", self, "_InfluenceVisible")
+	_ink_player.bind_external_function("influenceVisible", self, "_influenceVisible")
 	_ink_player.bind_external_function("focusText", self, "_focusText")
 	_ink_player.bind_external_function("resolveText", self, "_resolveText")
-	_ink_player.bind_external_function("InfluenceText", self, "_InfluenceText")
+	_ink_player.bind_external_function("influenceText", self, "_influenceText")
+	_ink_player.bind_external_function("secsText", self, "_secsText")
+	_ink_player.bind_external_function("secsVisible", self, "_secsVisible")
+	_ink_player.bind_external_function("luckText", self, "_luckText")
+	_ink_player.bind_external_function("luckVisible", self, "_luckVisible")
+	_ink_player.bind_external_function("timerStart", self, "_timerStart")
+	_ink_player.bind_external_function("timerStop", self, "_timerStop")
 
 func _focusVisible(visible):
 	FocusText.visible = visible
@@ -178,22 +184,26 @@ func _influenceVisible(visible):
 func _influenceText(text):
 	InfluenceText.text = text
 	
-func _TimerStart(time):
+func _luckVisible(visible):
+	LuckText.visible = visible
+	
+func _luckText(text):
+	LuckText.text = text
+	
+func _secsVisible(visible):
+	SecsText.visible = visible
+	
+func _secsText(text):
+	SecsText.text = text
+	
+func _timerStart(time):
 	CopTimer.start(time)
+	
+func _timerStop():
+	CopTimer.stop()
 
 func _actone():
 	print("ACT 1 ", playerProgress)
-	FocusText.visible = true
-	ResolveText.visible = true
-	InfluenceText.visible = true
-	CopTimer.stop()
-	FocusText.text = "[color=grey]Focus: [/color]"
-	ResolveText.text = "[color=blue]Resolve: [/color]"
-	InfluenceText.text = "[color=yellow]Influence: [/color]"
-	SecsText.visible = false
-	SecsText.text = "[color=red]Secs: [/color]"
-	LuckText.visible = false
-	LuckText.text = "[color=green]Luck: [/color]"
 	
 func _acttwo():
 	print("ACT 2: ", playerProgress)
