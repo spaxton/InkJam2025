@@ -165,6 +165,7 @@ func _bind_externals():
 	_ink_player.bind_external_function("luckVisible", self, "_luckVisible")
 	_ink_player.bind_external_function("timerStart", self, "_timerStart")
 	_ink_player.bind_external_function("timerStop", self, "_timerStop")
+	_ink_player.bind_external_function("timerModify", self, "_timerModify")
 
 func _focusVisible(visible):
 	FocusText.visible = visible
@@ -196,11 +197,15 @@ func _secsVisible(visible):
 func _secsText(text):
 	SecsText.text = text
 	
-func _timerStart(time):
+func _timerStart(time = 120):
 	CopTimer.start(time)
 	
 func _timerStop():
 	CopTimer.stop()
+	
+func _timerModify(timeAdjustment):
+	if CopTimer.is_stopped() == false:
+		CopTimer.wait_time += timeAdjustment
 
 func _actone():
 	print("ACT 1 ", playerProgress)
