@@ -212,13 +212,6 @@ func _actone():
 	
 func _acttwo():
 	print("ACT 2: ", playerProgress)
-	CopTimer.start()
-	FocusText.visible = false
-	ResolveText.visible = false
-	InfluenceText.visible = false
-	SecsText.visible = true
-	LuckText.visible = true
-	LuckText.text = "[color=green]Luck: [/color]"
 	
 func _end():
 	print("END!!: ", playerProgress)
