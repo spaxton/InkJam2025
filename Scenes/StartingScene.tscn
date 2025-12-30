@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://day0g1kghfms8"]
+[gd_scene load_steps=9 format=3 uid="uid://day0g1kghfms8"]
 
 [ext_resource type="Script" uid="uid://brtb4fs42egxa" path="res://Scripts/templates/ink_template.gd" id="1_talt4"]
-[ext_resource type="Resource" uid="uid://deq0gefytgdps" path="res://INK/jekyll_and_hydeTEST.ink.json" id="2_0eap3"]
-[ext_resource type="Texture2D" uid="uid://btlsrlnyp7sog" path="res://images/old-natural-wooden-background.jpg" id="3_y01r4"]
-[ext_resource type="AudioStream" uid="uid://b2tu8vq2oc8ti" path="res://audio/ambience/space-ambient-sound.wav" id="4_0eap3"]
+[ext_resource type="Resource" uid="uid://s2y760nhcvnp" path="res://INK/jekyll_and_hydeTEST.ink.json" id="2_0eap3"]
+[ext_resource type="Texture2D" uid="uid://c1g0m5r4mhnlr" path="res://images/old-natural-wooden-background.jpg" id="3_y01r4"]
+[ext_resource type="AudioStream" uid="uid://cj7m8sqph8ads" path="res://audio/ambience/space-ambient-sound.wav" id="4_0eap3"]
 [ext_resource type="AudioStream" uid="uid://dsd8g3d26pxvr" path="res://audio/dialog/test_jekyll_short.wav" id="6_0eap3"]
-[ext_resource type="FontFile" uid="uid://c0ephf8ged50h" path="res://fonts/AquilineTwo.ttf" id="6_8i0ob"]
+[ext_resource type="FontFile" uid="uid://coigw6yxpg2l2" path="res://fonts/AquilineTwo.ttf" id="6_8i0ob"]
+[ext_resource type="Texture2D" uid="uid://cjdbk5uuw0imj" path="res://images/parchment_sized.png" id="6_ue4m4"]
+[ext_resource type="FontFile" uid="uid://cmdqmgxpj87f1" path="res://fonts/Badgers.otf" id="8_bn3pr"]
 
 [node name="StartingScene" type="Control"]
 layout_mode = 3
@@ -26,7 +28,7 @@ autoplay = true
 bus = &"ambient"
 
 [node name="WoodTable" type="TextureRect" parent="."]
-modulate = Color(0.3665946, 0.3665946, 0.36659455, 1)
+modulate = Color(0.366595, 0.366595, 0.366595, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,43 +43,47 @@ texture = ExtResource("3_y01r4")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LetterBackground" type="ColorRect" parent="."]
+[node name="LetterBackground" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.16700001
-anchor_top = 0.044000003
-anchor_right = 0.77900004
+anchor_left = 0.167
+anchor_top = 0.044
+anchor_right = 0.779
 anchor_bottom = 1.001
-offset_left = -0.64001465
-offset_top = 0.47999573
-offset_right = -0.6800537
-offset_bottom = -4.080078
+offset_left = -0.640015
+offset_top = 0.479996
+offset_right = -0.680054
+offset_bottom = -4.08008
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-color = Color(0.87564456, 0.7447373, 0.5776773, 1)
-metadata/_edit_group_ = true
+texture = ExtResource("6_ue4m4")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LetterBackground"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = -1
+anchor_left = 0.051
+anchor_top = 0.043
+anchor_right = 0.987
+anchor_bottom = 0.967
+offset_left = 0.0749969
+offset_top = -0.247002
+offset_right = 0.274902
+offset_bottom = -10.0431
 horizontal_scroll_mode = 0
 
 [node name="InkText" type="VBoxContainer" parent="LetterBackground/ScrollContainer"]
-custom_minimum_size = Vector2(1100, 0)
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="InkTextArea" type="RichTextLabel" parent="LetterBackground/ScrollContainer/InkText"]
+[node name="InkTextArea_Aqualine" type="RichTextLabel" parent="LetterBackground/ScrollContainer/InkText"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_colors/default_color = Color(0.17641911, 0.17641908, 0.17641908, 1)
+theme_override_colors/default_color = Color(0.176419, 0.176419, 0.176419, 1)
 theme_override_constants/line_separation = -40
 theme_override_fonts/normal_font = ExtResource("6_8i0ob")
 theme_override_font_sizes/normal_font_size = 45
@@ -85,8 +91,20 @@ bbcode_enabled = true
 text = " Ink story text area"
 fit_content = true
 scroll_active = false
+scroll_following = true
 autowrap_mode = 2
 justification_flags = 131
+
+[node name="InkTextArea" type="RichTextLabel" parent="LetterBackground/ScrollContainer/InkText"]
+clip_contents = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.176419, 0.176419, 0.176419, 1)
+theme_override_fonts/normal_font = ExtResource("8_bn3pr")
+theme_override_font_sizes/normal_font_size = 45
+bbcode_enabled = true
+text = "Ink story text area"
+fit_content = true
 
 [node name="ChoiceButtonArea" type="VBoxContainer" parent="LetterBackground/ScrollContainer/InkText"]
 custom_minimum_size = Vector2(100, 0)
@@ -181,7 +199,7 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 1923.0
 offset_bottom = 1077.0
-color = Color(1, 1, 1, 0.21960784)
+color = Color(1, 1, 1, 0.219608)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Credits"]
 layout_mode = 1
